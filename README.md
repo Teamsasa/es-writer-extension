@@ -16,6 +16,25 @@ You can start editing the popup by modifying `popup.tsx`. It should auto-update 
 
 For further guidance, [visit our Documentation](https://docs.plasmo.com/)
 
+## Environment Variables
+
+### .env.development
+
+Set up the following environment variables for development. Authentication details can be found in the Clerk dashboard.
+
+```
+PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_FRONTEND_API=
+```
+
+### .env.chrome
+
+Set up the following environment variable for Chrome extension builds. Follow the guide at [Clerk Chrome Extension Setup](https://clerk.com/docs/quickstarts/chrome-extension#create-a-consistent-crx-id-for-your-extension) and generate key pairs using [Itero Plasmo Tool](https://itero.plasmo.com/tools/generate-keypairs).
+
+```
+CRX_PUBLIC_KEY=
+```
+
 ## Linting and Formatting
 
 To check and automatically format your code, run the following command:
