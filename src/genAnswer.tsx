@@ -17,6 +17,7 @@ async function genAnswer() {
 							console.log("html loaded");
 							try {
 								const apiResponse = await fetch(
+									// this should be modified to the correct endpoint
 									`${api_endpoint}/app/generate/generateAnswers`,
 									{
 										method: "POST",

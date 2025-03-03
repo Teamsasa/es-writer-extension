@@ -16,7 +16,7 @@ const ProfileForm = () => {
 	useEffect(() => {
 		const fetchProfileData = async () => {
 			try {
-				const response = await fetch(`${api_endpoint}/app/profile/getProfile`, {
+				const response = await fetch(`${api_endpoint}/api/experience`, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -43,7 +43,7 @@ const ProfileForm = () => {
 	const handleProfileSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 
-		const response = await fetch(`${api_endpoint}/app/profile/updateProfile`, {
+		const response = await fetch(`${api_endpoint}/api/experience`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",

@@ -4,8 +4,6 @@ export const config: PlasmoCSConfig = {
 	matches: ["<all_urls>"],
 };
 
-export const api_endpoint = process.env.PLASMO_PUBLIC_API_ENDPOINT;
-
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
 	if (request.action === "getHTML") {
 		sendResponse({ html: document.documentElement.outerHTML });
