@@ -8,7 +8,7 @@
 		"dev": "plasmo dev",
 		"build": "plasmo build",
 		"package": "plasmo package",
-		"check": "biome check --write ./src"
+		"check": "biome check --write --vcs-enabled=true --vcs-client-kind=git --vcs-use-ignore-file=true ."
 	},
 	"dependencies": {
 		"@clerk/chrome-extension": "^2.2.13",
