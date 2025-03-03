@@ -2,6 +2,7 @@ import type React from "react";
 import ReactDOM from "react-dom";
 import "~style.css";
 
+import { ClerkProvider } from "@clerk/chrome-extension";
 import { Layout } from "../components/Layout";
 import { NotificationSnackbar } from "../components/NotificationSnackbar";
 import { TextareaField } from "../components/TextareaField";
@@ -84,4 +85,14 @@ const ProfileForm: React.FC = () => {
 	);
 };
 
-ReactDOM.render(<ProfileForm />, document.getElementById("root"));
+const ProfilePage = () => {
+	return (
+		<ClerkProvider
+			publishableKey={process.env.PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY}
+		>
+			<ProfileForm />
+		</ClerkProvider>
+	);
+};
+
+ReactDOM.render(<ProfilePage />, document.getElementById("root"));

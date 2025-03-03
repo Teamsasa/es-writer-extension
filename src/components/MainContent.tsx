@@ -1,5 +1,5 @@
 import { SignInButton, SignedIn, SignedOut } from "@clerk/chrome-extension";
-import genAnswer from "~genAnswer";
+import { useGenAnswer } from "../hooks/genAnswer";
 import { Button } from "./Button";
 
 const EXTENSION_URL = chrome.runtime.getURL(".");
@@ -37,6 +37,8 @@ const ProfileIcon = () => (
 );
 
 export const MainContent = () => {
+	const genAnswer = useGenAnswer();
+
 	const handleGenAnswer = async () => {
 		try {
 			await genAnswer();

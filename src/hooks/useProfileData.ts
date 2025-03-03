@@ -1,3 +1,4 @@
+import { useAuth } from "@clerk/chrome-extension";
 import { useEffect, useState } from "react";
 
 const api_endpoint = process.env.PLASMO_PUBLIC_API_ENDPOINT;
@@ -24,15 +25,19 @@ export const useProfileData = (): UseProfileDataReturn => {
 		futureGoals: "",
 	});
 	const [isSaving, setIsSaving] = useState(false);
+	const { getToken } = useAuth();
 
 	useEffect(() => {
 		const fetchProfileData = async () => {
 			try {
+				const token = await getToken();
+
 				const response = await fetch(`${api_endpoint}/api/experience`, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
-						IdpHeader: process.env.PLASMO_PUBLIC_IDP,
+						Authorization: `Bearer ${token}`,
+						IdpHeader: process.env.PLASMO_PUBLIC_IDP_HEADER,
 					},
 				});
 
@@ -53,7 +58,7 @@ export const useProfileData = (): UseProfileDataReturn => {
 		};
 
 		fetchProfileData();
-	}, []);
+	}, [getToken]);
 
 	const setProfileData = (data: Partial<ProfileData>) => {
 		setProfileDataState((prev) => ({ ...prev, ...data }));
@@ -62,11 +67,14 @@ export const useProfileData = (): UseProfileDataReturn => {
 	const saveProfile = async (): Promise<boolean> => {
 		setIsSaving(true);
 		try {
+			const token = await getToken();
+
 			const response = await fetch(`${api_endpoint}/api/experience`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					IdpHeader: process.env.PLASMO_PUBLIC_IDP,
+					Authorization: `Bearer ${token}`,
+					IdpHeader: process.env.PLASMO_PUBLIC_IDP_HEADER,
 				},
 				body: JSON.stringify(profileData),
 			});
