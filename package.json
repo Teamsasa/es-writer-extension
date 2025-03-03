@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
-    "package": "plasmo package"
+    "package": "plasmo package",
+    "check" : "biome check --write ./src"
   },
   "dependencies": {
     "@clerk/chrome-extension": "^2.2.13",
@@ -17,18 +18,24 @@
     "tailwindcss": "3.4.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@ianvs/prettier-plugin-sort-imports": "4.1.1",
     "@types/chrome": "0.0.258",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "postcss": "8.4.33",
-    "prettier": "3.2.4",
     "typescript": "5.3.3"
   },
   "manifest": {
     "key": "$CRX_PUBLIC_KEY",
-    "permissions": ["cookies", "storage"],
-    "host_permissions": ["http://localhost/*", "$CLERK_FRONTEND_API/*"]
+    "permissions": [
+      "cookies",
+      "storage"
+    ],
+    "host_permissions": [
+      "http://localhost/*",
+      "$CLERK_FRONTEND_API/*"
+    ]
   }
 }
