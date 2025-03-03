@@ -26,6 +26,7 @@ Set up the following environment variables for development. Authentication detai
 PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_FRONTEND_API=
 PLASMO_PUBLIC_API_ENDPOINT=
+PLASMO_PUBLIC_IDP_HEADER=
 ```
 
 ### .env.chrome
