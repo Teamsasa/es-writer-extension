@@ -1,5 +1,3 @@
-/// <reference types="chrome"/>
-
 interface GeneratedAnswers {
 	[key: string]: string;
 }
