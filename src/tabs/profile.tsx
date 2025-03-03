@@ -8,7 +8,7 @@ import "~style.css";
 const api_endpoint = process.env.PLASMO_PUBLIC_API_ENDPOINT;
 
 const ProfileForm = () => {
-	const [workExperience, setWorkExperience] = useState("");
+	const [work, setWork] = useState("");
 	const [skills, setSkills] = useState("");
 	const [selfPR, setSelfPR] = useState("");
 	const [futureGoals, setFutureGoals] = useState("");
@@ -26,12 +26,13 @@ const ProfileForm = () => {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
+						IdpHeader: process.env.PLASMO_PUBLIC_IDP,
 					},
 				});
 
 				if (response.ok) {
 					const data = await response.json();
-					setWorkExperience(data.workExperience || "");
+					setWork(data.work || "");
 					setSkills(data.skills || "");
 					setSelfPR(data.selfPR || "");
 					setFutureGoals(data.futureGoals || "");
@@ -52,11 +53,12 @@ const ProfileForm = () => {
 
 		try {
 			const response = await fetch(`${api_endpoint}/api/experience`, {
-				method: "PATCH",
+				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
+					IdpHeader: process.env.PLASMO_PUBLIC_IDP,
 				},
-				body: JSON.stringify({ workExperience, skills, selfPR, futureGoals }),
+				body: JSON.stringify({ work, skills, selfPR, futureGoals }),
 			});
 
 			if (response.ok) {
@@ -166,8 +168,8 @@ const ProfileForm = () => {
 				<form onSubmit={handleProfileSubmit}>
 					<TextareaField
 						label="略歴（アルバイト、インターン、イベントなど）"
-						value={workExperience}
-						onChange={(e) => setWorkExperience(e.target.value)}
+						value={work}
+						onChange={(e) => setWork(e.target.value)}
 						placeholder="あなたのこれまでの経験を入力してください"
 					/>
 
