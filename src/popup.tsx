@@ -6,7 +6,7 @@ import {
 	UserButton,
 } from "@clerk/chrome-extension";
 
-import { CountButton } from "~features/count-button";
+import genAnswer from "~genAnswer";
 
 import "~style.css";
 
@@ -27,18 +27,37 @@ function IndexPopup() {
 			signInFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
 			signUpFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
 		>
-			<div className="plasmo-flex plasmo-items-center plasmo-justify-center plasmo-h-[600px] plasmo-w-[800px] plasmo-flex-col">
-				<header className="plasmo-w-full">
+			<div className="flex items-center justify-center h-[600px] w-[800px] flex-col">
+				<header className="w-full">
 					<SignedOut>
 						<SignInButton mode="modal" />
 					</SignedOut>
 					<SignedIn>
 						<UserButton />
+						<button
+							type="button"
+							onClick={async () => {
+								try {
+									await genAnswer();
+								} catch (error) {
+									console.error("Error generating answer:", error);
+								}
+							}}
+						>
+							回答生成
+						</button>
+						<button
+							type="button"
+							onClick={() => {
+								chrome.tabs.create({
+									url: `${EXTENSION_URL}/tabs/profile.html`,
+								});
+							}}
+						>
+							経歴入力
+						</button>
 					</SignedIn>
 				</header>
-				<main className="plasmo-grow">
-					<CountButton />
-				</main>
 			</div>
 		</ClerkProvider>
 	);
