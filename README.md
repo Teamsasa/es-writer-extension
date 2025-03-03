@@ -16,6 +16,18 @@ You can start editing the popup by modifying `popup.tsx`. It should auto-update 
 
 For further guidance, [visit our Documentation](https://docs.plasmo.com/)
 
+## Linting and Formatting
+
+To check and automatically format your code, run the following command:
+
+```bash
+pnpm check
+# or
+npm run check
+```
+
+This will run linting and formatting checks, applying necessary fixes automatically. Files that are ignored by git will not be checked or modified.
+
 ## Making production build
 
 Run the following:
