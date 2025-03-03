@@ -106,6 +106,29 @@ const ProfileForm = () => {
 		);
 	};
 
+	const NotificationSnackbar = ({ type, message, show }) => {
+		if (!show) return null;
+		
+		return (
+			<div 
+				className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg text-white shadow-lg transition-all duration-300 animate-fade-in z-50 flex items-center ${
+					type === "success" ? "bg-green-500" : "bg-red-500"
+				}`}
+			>
+				{type === "success" ? (
+					<svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+					</svg>
+				) : (
+					<svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				)}
+				{message}
+			</div>
+		);
+	};
+
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8 px-4">
 			<div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl">
@@ -115,16 +138,6 @@ const ProfileForm = () => {
 				<p className="text-gray-500 text-center mb-8">
 					あなたの経験やスキルを入力してください
 				</p>
-
-				{notification.show && (
-					<div
-						className={`mb-6 p-4 rounded-lg text-white text-center ${
-							notification.type === "success" ? "bg-green-500" : "bg-red-500"
-						}`}
-					>
-						{notification.message}
-					</div>
-				)}
 
 				<form onSubmit={handleProfileSubmit}>
 					<TextareaField
@@ -167,6 +180,12 @@ const ProfileForm = () => {
 						{isSaving ? "保存中..." : "プロフィールを保存"}
 					</button>
 				</form>
+				
+				<NotificationSnackbar
+					type={notification.type}
+					message={notification.message}
+					show={notification.show}
+				/>
 			</div>
 		</div>
 	);
