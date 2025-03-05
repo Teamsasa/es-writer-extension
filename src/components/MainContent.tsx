@@ -1,6 +1,13 @@
 import { SignInButton, SignedIn, SignedOut } from "@clerk/chrome-extension";
+import { useState } from "react";
 import { useGenAnswer } from "../hooks/genAnswer";
 import { Button } from "./Button";
+import { GenerateModal } from "./GenerateModal";
+
+type LLMModel =
+	| "gemini-2.0-flash"
+	| "gemini-2.0-flash-lite"
+	| "gemini-2.0-flash-thinking-exp";
 
 const EXTENSION_URL = chrome.runtime.getURL(".");
 
@@ -38,10 +45,14 @@ const ProfileIcon = () => (
 
 export const MainContent = () => {
 	const genAnswer = useGenAnswer();
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const handleGenAnswer = async () => {
+	const handleGenAnswer = async (params: {
+		company: string;
+		model: LLMModel;
+	}) => {
 		try {
-			await genAnswer();
+			await genAnswer(params);
 		} catch (error) {
 			console.error("Error generating answer:", error);
 		}
@@ -57,7 +68,7 @@ export const MainContent = () => {
 		<main className="flex-1 flex flex-col items-center justify-center p-6">
 			<SignedIn>
 				<div className="flex flex-col items-center gap-6 w-full max-w-md">
-					<Button onClick={handleGenAnswer}>
+					<Button onClick={() => setIsModalOpen(true)}>
 						<GenerateIcon />
 						回答生成
 					</Button>
@@ -66,6 +77,11 @@ export const MainContent = () => {
 						経歴入力
 					</Button>
 				</div>
+				<GenerateModal
+					isOpen={isModalOpen}
+					onClose={() => setIsModalOpen(false)}
+					onGenerate={handleGenAnswer}
+				/>
 			</SignedIn>
 			<SignedOut>
 				<div className="text-center">

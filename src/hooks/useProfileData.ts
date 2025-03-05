@@ -1,7 +1,7 @@
 import { useAuth } from "@clerk/chrome-extension";
 import { useEffect, useState } from "react";
 
-const api_endpoint = process.env.PLASMO_PUBLIC_API_ENDPOINT;
+const API_ENDPOINT = process.env.PLASMO_PUBLIC_API_ENDPOINT;
 
 interface ProfileData {
 	work: string;
@@ -32,7 +32,7 @@ export const useProfileData = (): UseProfileDataReturn => {
 			try {
 				const token = await getToken();
 
-				const response = await fetch(`${api_endpoint}/api/experience`, {
+				const response = await fetch(`${API_ENDPOINT}/api/experience`, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -69,7 +69,7 @@ export const useProfileData = (): UseProfileDataReturn => {
 		try {
 			const token = await getToken();
 
-			const response = await fetch(`${api_endpoint}/api/experience`, {
+			const response = await fetch(`${API_ENDPOINT}/api/experience`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
