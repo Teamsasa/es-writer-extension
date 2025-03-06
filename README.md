@@ -12,15 +12,27 @@ After running pnpm dev, open chrome://extensions/ in Chrome. Enable Developer mo
 
 ## Environment Variables
 
-### .env.development
+### .env
 
-Set up the following environment variables for development. Authentication details can be found in the Clerk dashboard.
+Authentication details can be found in the Clerk dashboard.
 
 ```
 PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_FRONTEND_API=
+```
+
+### .env.development
+
+```
+PLASMO_PUBLIC_API_ENDPOINT=http://localhost:8080
+PLASMO_PUBLIC_IDP_HEADER=swagger
+```
+
+### .env.production
+
+```
 PLASMO_PUBLIC_API_ENDPOINT=
-PLASMO_PUBLIC_IDP_HEADER=
+PLASMO_PUBLIC_IDP_HEADER=clerk
 ```
 
 ### .env.chrome
