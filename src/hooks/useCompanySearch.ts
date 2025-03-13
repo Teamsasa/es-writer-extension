@@ -33,17 +33,21 @@ export const useCompanySearch = () => {
 						Authorization: `Bearer ${token}`,
 						IdpHeader: process.env.PLASMO_PUBLIC_IDP_HEADER,
 					},
-				}
+				},
 			);
-			
+
 			if (!response.ok) {
 				switch (response.status) {
 					case 401:
-						throw new Error("認証エラーが発生しました。再度ログインしてください。");
+						throw new Error(
+							"認証エラーが発生しました。再度ログインしてください。",
+						);
 					case 404:
 						throw new Error("リソースが見つかりませんでした。");
 					case 500:
-						throw new Error("サーバーエラーが発生しました。しばらく時間をおいて再度お試しください。");
+						throw new Error(
+							"サーバーエラーが発生しました。しばらく時間をおいて再度お試しください。",
+						);
 					default:
 						throw new Error(`APIエラー: ${response.status}`);
 				}
@@ -53,7 +57,9 @@ export const useCompanySearch = () => {
 			setCompanies(data);
 		} catch (err) {
 			console.error("企業検索エラー:", err);
-			setError(err instanceof Error ? err.message : "企業検索中にエラーが発生しました");
+			setError(
+				err instanceof Error ? err.message : "企業検索中にエラーが発生しました",
+			);
 			setCompanies([]);
 		} finally {
 			setIsLoading(false);
@@ -68,4 +74,4 @@ export const useCompanySearch = () => {
 		updateSearchQuery,
 		searchCompanies,
 	};
-}; 
+};

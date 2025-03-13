@@ -13,8 +13,18 @@ export const MainContent = ({ onNavigate }: MainContentProps) => {
 						className="w-full bg-primary-main hover:bg-primary-dark text-white dark:bg-primary-light dark:hover:bg-primary-main dark:text-darkmode-text-primary py-3 px-4 rounded-md font-semibold transition-colors duration-200 flex items-center justify-center"
 						onClick={() => onNavigate("generate")}
 					>
-						<svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+						<svg
+							className="w-5 h-5 mr-2"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M13 10V3L4 14h7v7l9-11h-7z"
+							/>
 						</svg>
 						回答生成
 					</button>
@@ -22,8 +32,18 @@ export const MainContent = ({ onNavigate }: MainContentProps) => {
 						className="w-full border border-primary-main text-primary-main hover:bg-primary-main/10 dark:border-primary-light dark:text-primary-light dark:hover:bg-primary-light/20 py-3 px-4 rounded-md font-semibold transition-colors duration-200 flex items-center justify-center"
 						onClick={() => onNavigate("profile")}
 					>
-						<svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+						<svg
+							className="w-5 h-5 mr-2"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+							/>
 						</svg>
 						経歴入力
 					</button>

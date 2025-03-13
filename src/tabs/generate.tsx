@@ -21,7 +21,14 @@ function GenerateTabContent() {
 	const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
 	const [selectedModel, setSelectedModel] =
 		useState<LLMModel>("gemini-2.0-flash");
-	const { companies, isLoading, error, searchQuery, updateSearchQuery, searchCompanies } = useCompanySearch();
+	const {
+		companies,
+		isLoading,
+		error,
+		searchQuery,
+		updateSearchQuery,
+		searchCompanies,
+	} = useCompanySearch();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [generateSuccess, setGenerateSuccess] = useState(false);
 	const [isCompanyMenuOpen, setIsCompanyMenuOpen] = useState(false);
@@ -30,7 +37,7 @@ function GenerateTabContent() {
 
 	// 企業検索フォームでenterキーが押された時に検索を実行
 	const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === 'Enter') {
+		if (e.key === "Enter") {
 			e.preventDefault();
 			searchCompanies();
 		}
@@ -60,7 +67,7 @@ function GenerateTabContent() {
 
 		setIsSubmitting(true);
 		setGenerateSuccess(false);
-		
+
 		try {
 			await genAnswer({
 				companyName: selectedCompany.name,
@@ -109,7 +116,7 @@ function GenerateTabContent() {
 				<h1 className="text-xl font-bold mb-4 text-gray-900 dark:text-darkmode-text-primary">
 					回答生成
 				</h1>
-				
+
 				<form onSubmit={handleGenerate}>
 					<div className="mt-6">
 						<h2 className="text-lg font-medium mb-2 text-gray-900 dark:text-darkmode-text-primary">
@@ -141,12 +148,22 @@ function GenerateTabContent() {
 										disabled={isLoading || searchQuery.trim().length < 2}
 										className="px-4 py-3 bg-primary-main hover:bg-primary-dark text-white dark:bg-primary-light dark:hover:bg-primary-main dark:text-darkmode-text-primary rounded-r-md disabled:opacity-50 disabled:cursor-not-allowed"
 									>
-										<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+										<svg
+											className="w-5 h-5"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+											/>
 										</svg>
 									</button>
 								</div>
-								
+
 								{isCompanyMenuOpen && companies.length > 0 && (
 									<div className="absolute z-10 w-full mt-1 bg-white dark:bg-darkmode-paper border border-gray-200 dark:border-darkmode-border rounded-md shadow-lg max-h-48 overflow-y-auto">
 										{companies.map((company) => (
@@ -155,16 +172,18 @@ function GenerateTabContent() {
 												onClick={() => handleCompanySelect(company)}
 												className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
 											>
-												<div className="font-medium text-sm dark:text-darkmode-text-primary">{company.name}</div>
-												<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">{company.corporate_number}</div>
+												<div className="font-medium text-sm dark:text-darkmode-text-primary">
+													{company.name}
+												</div>
+												<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
+													{company.corporate_number}
+												</div>
 											</div>
 										))}
 									</div>
 								)}
-								
-								{error && (
-									<p className="text-xs text-red-500 mt-1">{error}</p>
-								)}
+
+								{error && <p className="text-xs text-red-500 mt-1">{error}</p>}
 							</div>
 							<p className="text-xs text-gray-500 dark:text-darkmode-text-secondary mt-1">
 								会社名を入力して検索ボタンをクリックしてください
@@ -184,24 +203,46 @@ function GenerateTabContent() {
 									className="w-full px-3 py-3 text-sm bg-white dark:bg-darkmode-paper border border-gray-300 dark:border-darkmode-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-main dark:focus:ring-primary-light focus:border-primary-main transition-colors dark:text-darkmode-text-primary text-left flex justify-between items-center"
 								>
 									<span className="block">
-										<span className="font-medium block">{getModelDisplayName(selectedModel)}</span>
-										<span className="text-xs text-gray-500 dark:text-darkmode-text-secondary">{getModelDescription(selectedModel)}</span>
+										<span className="font-medium block">
+											{getModelDisplayName(selectedModel)}
+										</span>
+										<span className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
+											{getModelDescription(selectedModel)}
+										</span>
 									</span>
-									<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+									<svg
+										className="w-4 h-4"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M19 9l-7 7-7-7"
+										/>
 									</svg>
 								</button>
-								
+
 								{isModelMenuOpen && (
 									<div className="absolute z-10 w-full mt-1 bg-white dark:bg-darkmode-paper border border-gray-200 dark:border-darkmode-border rounded-md shadow-lg">
-										{["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.0-flash-thinking-exp"].map((model) => (
+										{[
+											"gemini-2.0-flash",
+											"gemini-2.0-flash-lite",
+											"gemini-2.0-flash-thinking-exp",
+										].map((model) => (
 											<div
 												key={model}
 												onClick={() => handleModelChange(model as LLMModel)}
 												className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
 											>
-												<div className="font-medium text-sm dark:text-darkmode-text-primary">{getModelDisplayName(model as LLMModel)}</div>
-												<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">{getModelDescription(model as LLMModel)}</div>
+												<div className="font-medium text-sm dark:text-darkmode-text-primary">
+													{getModelDisplayName(model as LLMModel)}
+												</div>
+												<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
+													{getModelDescription(model as LLMModel)}
+												</div>
 											</div>
 										))}
 									</div>
@@ -221,10 +262,12 @@ function GenerateTabContent() {
 									<div className="animate-spin -ml-1 mr-2 h-5 w-5 border-2 border-white dark:border-darkmode-text-primary border-t-transparent rounded-full"></div>
 									生成中...
 								</>
-							) : "回答を生成する"}
+							) : (
+								"回答を生成する"
+							)}
 						</button>
 					</div>
-					
+
 					{generateSuccess && (
 						<div className="mt-4 text-center text-green-600 dark:text-green-400">
 							回答の生成が完了しました！
@@ -257,4 +300,4 @@ export default function GenerateTab() {
 			</ClerkProvider>
 		</ThemeWrapper>
 	);
-} 
+}

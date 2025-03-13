@@ -12,4 +12,4 @@ export interface GenerateParams {
 export interface Company {
 	corporate_number: string;
 	name: string;
-} 
+}

@@ -11,7 +11,14 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 	const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
 	const [selectedModel, setSelectedModel] =
 		useState<LLMModel>("gemini-2.0-flash");
-	const { companies, isLoading, error, searchQuery, updateSearchQuery, searchCompanies } = useCompanySearch();
+	const {
+		companies,
+		isLoading,
+		error,
+		searchQuery,
+		updateSearchQuery,
+		searchCompanies,
+	} = useCompanySearch();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [generateSuccess, setGenerateSuccess] = useState(false);
 	const [isCompanyMenuOpen, setIsCompanyMenuOpen] = useState(false);
@@ -20,7 +27,7 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 
 	// 企業検索フォームでenterキーが押された時に検索を実行
 	const handleSearchKeyDown = (e: React.KeyboardEvent) => {
-		if (e.key === 'Enter') {
+		if (e.key === "Enter") {
 			e.preventDefault();
 			searchCompanies();
 		}
@@ -48,14 +55,14 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 		e.preventDefault();
 		if (!selectedCompany) return;
 
-		console.log("企業情報:", { 
-			companyName: selectedCompany.name, 
-			companyId: selectedCompany.corporate_number 
+		console.log("企業情報:", {
+			companyName: selectedCompany.name,
+			companyId: selectedCompany.corporate_number,
 		});
 
 		setIsSubmitting(true);
 		setGenerateSuccess(false);
-		
+
 		try {
 			await genAnswer({
 				companyName: selectedCompany.name,
@@ -106,19 +113,29 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 	return (
 		<div className="py-2 px-4 h-full overflow-auto dark:text-darkmode-text-primary">
 			<div className="flex items-center mb-3">
-				<button 
-					onClick={onBack} 
+				<button
+					onClick={onBack}
 					className="mr-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-darkmode-border transition-colors"
 				>
-					<svg className="w-5 h-5 text-gray-700 dark:text-darkmode-text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+					<svg
+						className="w-5 h-5 text-gray-700 dark:text-darkmode-text-primary"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth={2}
+							d="M10 19l-7-7m0 0l7-7m-7 7h18"
+						/>
 					</svg>
 				</button>
 				<h1 className="text-base font-bold text-gray-900 dark:text-darkmode-text-primary">
 					回答生成
 				</h1>
 			</div>
-			
+
 			<form onSubmit={handleGenerate}>
 				<div className="mb-4">
 					<label className="block text-sm font-medium mb-1 dark:text-darkmode-text-primary">
@@ -149,12 +166,22 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 								disabled={isLoading || searchQuery.trim().length < 2}
 								className="px-3 py-2 bg-primary-main hover:bg-primary-dark text-white dark:bg-primary-light dark:hover:bg-primary-main dark:text-darkmode-text-primary rounded-r-md disabled:opacity-50 disabled:cursor-not-allowed"
 							>
-								<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+								<svg
+									className="w-4 h-4"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+									/>
 								</svg>
 							</button>
 						</div>
-						
+
 						{isCompanyMenuOpen && companies.length > 0 && (
 							<div className="absolute z-10 w-full mt-1 bg-white dark:bg-darkmode-paper border border-gray-200 dark:border-darkmode-border rounded-md shadow-lg max-h-48 overflow-y-auto">
 								{companies.map((company) => (
@@ -164,15 +191,15 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 										className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer text-sm"
 									>
 										<div className="font-medium">{company.name}</div>
-										<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">{company.corporate_number}</div>
+										<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
+											{company.corporate_number}
+										</div>
 									</div>
 								))}
 							</div>
 						)}
-						
-						{error && (
-							<p className="text-xs text-red-500 mt-1">{error}</p>
-						)}
+
+						{error && <p className="text-xs text-red-500 mt-1">{error}</p>}
 					</div>
 					<p className="text-xs text-gray-500 dark:text-darkmode-text-secondary mt-1">
 						会社名を入力してください
@@ -190,24 +217,46 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 							className="w-full px-3 py-2 text-sm bg-white dark:bg-darkmode-paper border border-gray-300 dark:border-darkmode-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-main dark:focus:ring-primary-light focus:border-primary-main transition-colors dark:text-darkmode-text-primary text-left flex justify-between items-center"
 						>
 							<div>
-								<div className="font-medium">{getModelDisplayName(selectedModel)}</div>
-								<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">{getModelDescription(selectedModel)}</div>
+								<div className="font-medium">
+									{getModelDisplayName(selectedModel)}
+								</div>
+								<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
+									{getModelDescription(selectedModel)}
+								</div>
 							</div>
-							<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+							<svg
+								className="w-4 h-4"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M19 9l-7 7-7-7"
+								/>
 							</svg>
 						</button>
-						
+
 						{isModelMenuOpen && (
 							<div className="absolute z-10 w-full mt-1 bg-white dark:bg-darkmode-paper border border-gray-200 dark:border-darkmode-border rounded-md shadow-lg">
-								{["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.0-flash-thinking-exp"].map((model) => (
+								{[
+									"gemini-2.0-flash",
+									"gemini-2.0-flash-lite",
+									"gemini-2.0-flash-thinking-exp",
+								].map((model) => (
 									<div
 										key={model}
 										onClick={() => handleModelChange(model as LLMModel)}
 										className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
 									>
-										<div className="font-medium text-sm">{getModelDisplayName(model as LLMModel)}</div>
-										<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">{getModelDescription(model as LLMModel)}</div>
+										<div className="font-medium text-sm">
+											{getModelDisplayName(model as LLMModel)}
+										</div>
+										<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
+											{getModelDescription(model as LLMModel)}
+										</div>
 									</div>
 								))}
 							</div>
@@ -223,9 +272,25 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 					>
 						{isSubmitting ? (
 							<>
-								<svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white dark:text-darkmode-text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-									<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-									<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+								<svg
+									className="animate-spin -ml-1 mr-2 h-4 w-4 text-white dark:text-darkmode-text-primary"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+								>
+									<circle
+										className="opacity-25"
+										cx="12"
+										cy="12"
+										r="10"
+										stroke="currentColor"
+										strokeWidth="4"
+									></circle>
+									<path
+										className="opacity-75"
+										fill="currentColor"
+										d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+									></path>
 								</svg>
 								処理中...
 							</>
@@ -243,4 +308,4 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 			</form>
 		</div>
 	);
-}; 
+};

@@ -30,8 +30,10 @@ export const Button = ({
 
 	// バリアントに基づくクラス
 	const variantClasses = {
-		primary: "bg-primary-main hover:bg-primary-dark text-white dark:bg-primary-light dark:hover:bg-primary-main dark:text-darkmode-text-primary",
-		secondary: "border border-primary-main text-primary-main hover:bg-primary-main/10 dark:border-primary-light dark:text-primary-light dark:hover:bg-primary-light/20",
+		primary:
+			"bg-primary-main hover:bg-primary-dark text-white dark:bg-primary-light dark:hover:bg-primary-main dark:text-darkmode-text-primary",
+		secondary:
+			"border border-primary-main text-primary-main hover:bg-primary-main/10 dark:border-primary-light dark:text-primary-light dark:hover:bg-primary-light/20",
 	}[variant];
 
 	return (

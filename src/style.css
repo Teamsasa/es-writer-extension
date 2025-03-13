@@ -6,13 +6,13 @@
 
 /* ダークモード改善用のグローバルスタイル */
 @layer base {
-  .dark {
-    color-scheme: dark;
-  }
-  
-  .dark body {
-    @apply bg-darkmode-bg text-darkmode-text-primary;
-  }
+	.dark {
+		color-scheme: dark;
+	}
+
+	.dark body {
+		@apply bg-darkmode-bg text-darkmode-text-primary;
+	}
 }
 
 /* TailwindCSSのディレクティブを削除しました */

@@ -98,4 +98,4 @@ export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
 			{children}
 		</ColorModeContext.Provider>
 	);
-}; 
+};
