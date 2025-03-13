@@ -114,6 +114,7 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 		<div className="py-2 px-4 h-full overflow-auto dark:text-darkmode-text-primary">
 			<div className="flex items-center mb-3">
 				<button
+					type="button"
 					onClick={onBack}
 					className="mr-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-darkmode-border transition-colors"
 				>
@@ -122,7 +123,10 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
+						role="img"
+						aria-labelledby="backIcon"
 					>
+						<title id="backIcon">戻る</title>
 						<path
 							strokeLinecap="round"
 							strokeLinejoin="round"
@@ -138,13 +142,17 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 
 			<form onSubmit={handleGenerate}>
 				<div className="mb-4">
-					<label className="block text-sm font-medium mb-1 dark:text-darkmode-text-primary">
+					<label
+						htmlFor="companyInput"
+						className="block text-sm font-medium mb-1 dark:text-darkmode-text-primary"
+					>
 						会社名
 					</label>
 					<div className="relative">
 						<div className="flex">
 							<div className="relative flex-1">
 								<input
+									id="companyInput"
 									type="text"
 									value={searchQuery}
 									onChange={handleCompanyInputChange}
@@ -156,7 +164,7 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 								/>
 								{isLoading && (
 									<div className="absolute right-2 top-1/2 transform -translate-y-1/2">
-										<div className="animate-spin h-4 w-4 border-2 border-primary-main dark:border-primary-light border-t-transparent rounded-full"></div>
+										<div className="animate-spin h-4 w-4 border-2 border-primary-main dark:border-primary-light border-t-transparent rounded-full" />
 									</div>
 								)}
 							</div>
@@ -171,7 +179,10 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"
+									role="img"
+									aria-labelledby="searchIcon"
 								>
+									<title id="searchIcon">検索</title>
 									<path
 										strokeLinecap="round"
 										strokeLinejoin="round"
@@ -185,15 +196,21 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 						{isCompanyMenuOpen && companies.length > 0 && (
 							<div className="absolute z-10 w-full mt-1 bg-white dark:bg-darkmode-paper border border-gray-200 dark:border-darkmode-border rounded-md shadow-lg max-h-48 overflow-y-auto">
 								{companies.map((company) => (
-									<div
+									<button
+										type="button"
 										key={company.companyId}
 										onClick={() => handleCompanySelect(company)}
-										className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer text-sm"
+										onKeyDown={(e) => {
+											if (e.key === "Enter" || e.key === " ") {
+												handleCompanySelect(company);
+											}
+										}}
+										className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer text-sm"
 									>
 										<div className="font-medium">
 											{company.companyName} - {company.companyId}
 										</div>
-									</div>
+									</button>
 								))}
 							</div>
 						)}
@@ -206,11 +223,15 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 				</div>
 
 				<div className="mb-4">
-					<label className="block text-sm font-medium mb-1 dark:text-darkmode-text-primary">
+					<label
+						htmlFor="modelSelect"
+						className="block text-sm font-medium mb-1 dark:text-darkmode-text-primary"
+					>
 						生成モデル
 					</label>
 					<div className="relative">
 						<button
+							id="modelSelect"
 							type="button"
 							onClick={() => setIsModelMenuOpen(!isModelMenuOpen)}
 							className="w-full px-3 py-2 text-sm bg-white dark:bg-darkmode-paper border border-gray-300 dark:border-darkmode-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-main dark:focus:ring-primary-light focus:border-primary-main transition-colors dark:text-darkmode-text-primary text-left flex justify-between items-center"
@@ -228,7 +249,10 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
+								role="img"
+								aria-labelledby="dropdownIcon"
 							>
+								<title id="dropdownIcon">ドロップダウン</title>
 								<path
 									strokeLinecap="round"
 									strokeLinejoin="round"
@@ -245,10 +269,16 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 									"gemini-2.0-flash-lite",
 									"gemini-2.0-flash-thinking-exp",
 								].map((model) => (
-									<div
+									<button
+										type="button"
 										key={model}
 										onClick={() => handleModelChange(model as LLMModel)}
-										className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
+										onKeyDown={(e) => {
+											if (e.key === "Enter" || e.key === " ") {
+												handleModelChange(model as LLMModel);
+											}
+										}}
+										className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
 									>
 										<div className="font-medium text-sm">
 											{getModelDisplayName(model as LLMModel)}
@@ -256,7 +286,7 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 										<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
 											{getModelDescription(model as LLMModel)}
 										</div>
-									</div>
+									</button>
 								))}
 							</div>
 						)}
@@ -276,7 +306,10 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
+									role="img"
+									aria-labelledby="loadingIcon"
 								>
+									<title id="loadingIcon">読み込み中</title>
 									<circle
 										className="opacity-25"
 										cx="12"
@@ -284,12 +317,12 @@ export const GeneratePage = ({ onBack }: GeneratePageProps) => {
 										r="10"
 										stroke="currentColor"
 										strokeWidth="4"
-									></circle>
+									/>
 									<path
 										className="opacity-75"
 										fill="currentColor"
 										d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-									></path>
+									/>
 								</svg>
 								処理中...
 							</>

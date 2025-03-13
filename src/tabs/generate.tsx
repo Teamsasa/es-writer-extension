@@ -138,7 +138,7 @@ function GenerateTabContent() {
 										/>
 										{isLoading && (
 											<div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-												<div className="animate-spin h-5 w-5 border-2 border-primary-main dark:border-primary-light border-t-transparent rounded-full"></div>
+												<div className="animate-spin h-5 w-5 border-2 border-primary-main dark:border-primary-light border-t-transparent rounded-full" />
 											</div>
 										)}
 									</div>
@@ -153,7 +153,10 @@ function GenerateTabContent() {
 											fill="none"
 											viewBox="0 0 24 24"
 											stroke="currentColor"
+											role="img"
+											aria-labelledby="searchIcon"
 										>
+											<title id="searchIcon">検索</title>
 											<path
 												strokeLinecap="round"
 												strokeLinejoin="round"
@@ -167,10 +170,16 @@ function GenerateTabContent() {
 								{isCompanyMenuOpen && companies.length > 0 && (
 									<div className="absolute z-10 w-full mt-1 bg-white dark:bg-darkmode-paper border border-gray-200 dark:border-darkmode-border rounded-md shadow-lg max-h-48 overflow-y-auto">
 										{companies.map((company) => (
-											<div
+											<button
+												type="button"
 												key={company.companyId}
 												onClick={() => handleCompanySelect(company)}
-												className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
+												onKeyDown={(e) => {
+													if (e.key === "Enter" || e.key === " ") {
+														handleCompanySelect(company);
+													}
+												}}
+												className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
 											>
 												<div className="font-medium text-sm dark:text-darkmode-text-primary">
 													{company.companyName}
@@ -178,7 +187,7 @@ function GenerateTabContent() {
 												<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
 													{company.companyId}
 												</div>
-											</div>
+											</button>
 										))}
 									</div>
 								)}
@@ -215,7 +224,10 @@ function GenerateTabContent() {
 										fill="none"
 										viewBox="0 0 24 24"
 										stroke="currentColor"
+										role="img"
+										aria-labelledby="dropdownIcon"
 									>
+										<title id="dropdownIcon">ドロップダウン</title>
 										<path
 											strokeLinecap="round"
 											strokeLinejoin="round"
@@ -232,10 +244,16 @@ function GenerateTabContent() {
 											"gemini-2.0-flash-lite",
 											"gemini-2.0-flash-thinking-exp",
 										].map((model) => (
-											<div
+											<button
+												type="button"
 												key={model}
 												onClick={() => handleModelChange(model as LLMModel)}
-												className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
+												onKeyDown={(e) => {
+													if (e.key === "Enter" || e.key === " ") {
+														handleModelChange(model as LLMModel);
+													}
+												}}
+												className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
 											>
 												<div className="font-medium text-sm dark:text-darkmode-text-primary">
 													{getModelDisplayName(model as LLMModel)}
@@ -243,7 +261,7 @@ function GenerateTabContent() {
 												<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
 													{getModelDescription(model as LLMModel)}
 												</div>
-											</div>
+											</button>
 										))}
 									</div>
 								)}
@@ -259,7 +277,7 @@ function GenerateTabContent() {
 						>
 							{isSubmitting ? (
 								<>
-									<div className="animate-spin -ml-1 mr-2 h-5 w-5 border-2 border-white dark:border-darkmode-text-primary border-t-transparent rounded-full"></div>
+									<div className="animate-spin -ml-1 mr-2 h-5 w-5 border-2 border-white dark:border-darkmode-text-primary border-t-transparent rounded-full" />
 									生成中...
 								</>
 							) : (

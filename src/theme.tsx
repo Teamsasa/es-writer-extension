@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+} from "react";
 
 // カラーモードの型定義
 type ColorMode = "light" | "dark" | "system";
@@ -61,10 +68,10 @@ export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
 	}, []);
 
 	// モード設定関数
-	const setMode = (newMode: ColorMode) => {
+	const setMode = useCallback((newMode: ColorMode) => {
 		setModeState(newMode);
 		saveThemePreference(newMode);
-	};
+	}, []);
 
 	// 実際に適用するカラーモードを決定
 	const actualMode = useMemo(() => {
@@ -90,7 +97,7 @@ export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
 			setMode,
 			systemPreference,
 		}),
-		[mode, systemPreference],
+		[mode, systemPreference, setMode],
 	);
 
 	return (

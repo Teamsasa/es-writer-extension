@@ -33,7 +33,6 @@ function IndexPopup() {
 				chrome.tabs.create({ url: chrome.runtime.getURL("tabs/profile.html") });
 				setCurrentView("main");
 				return <MainContent onNavigate={navigateTo} />;
-			case "main":
 			default:
 				return <MainContent onNavigate={navigateTo} />;
 		}

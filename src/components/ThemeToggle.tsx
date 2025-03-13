@@ -10,7 +10,7 @@ export const ThemeToggle = () => {
 		setIsMenuOpen(false);
 	};
 
-	let tooltipText;
+	let tooltipText: string;
 
 	switch (mode) {
 		case "light":
@@ -27,6 +27,7 @@ export const ThemeToggle = () => {
 	return (
 		<div className="relative">
 			<button
+				type="button"
 				onClick={() => setIsMenuOpen(!isMenuOpen)}
 				title={tooltipText}
 				className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -38,7 +39,10 @@ export const ThemeToggle = () => {
 						stroke="currentColor"
 						viewBox="0 0 24 24"
 						xmlns="http://www.w3.org/2000/svg"
+						role="img"
+						aria-labelledby="lightModeIcon"
 					>
+						<title id="lightModeIcon">ライトモード</title>
 						<path
 							strokeLinecap="round"
 							strokeLinejoin="round"
@@ -54,7 +58,10 @@ export const ThemeToggle = () => {
 						stroke="currentColor"
 						viewBox="0 0 24 24"
 						xmlns="http://www.w3.org/2000/svg"
+						role="img"
+						aria-labelledby="darkModeIcon"
 					>
+						<title id="darkModeIcon">ダークモード</title>
 						<path
 							strokeLinecap="round"
 							strokeLinejoin="round"
@@ -70,7 +77,10 @@ export const ThemeToggle = () => {
 						stroke="currentColor"
 						viewBox="0 0 24 24"
 						xmlns="http://www.w3.org/2000/svg"
+						role="img"
+						aria-labelledby="systemModeIcon"
 					>
+						<title id="systemModeIcon">システム設定に合わせる</title>
 						<path
 							strokeLinecap="round"
 							strokeLinejoin="round"
@@ -90,6 +100,7 @@ export const ThemeToggle = () => {
 			{isMenuOpen && (
 				<div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-10 border border-gray-200 dark:border-gray-700">
 					<button
+						type="button"
 						onClick={() => handleModeChange("light")}
 						className={`flex items-center w-full px-4 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700 ${mode === "light" ? "bg-gray-100 dark:bg-gray-700" : ""}`}
 					>
@@ -99,7 +110,10 @@ export const ThemeToggle = () => {
 							stroke="currentColor"
 							viewBox="0 0 24 24"
 							xmlns="http://www.w3.org/2000/svg"
+							role="img"
+							aria-labelledby="lightModeMenuIcon"
 						>
+							<title id="lightModeMenuIcon">ライトモード</title>
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"
@@ -110,6 +124,7 @@ export const ThemeToggle = () => {
 						ライトモード
 					</button>
 					<button
+						type="button"
 						onClick={() => handleModeChange("dark")}
 						className={`flex items-center w-full px-4 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700 ${mode === "dark" ? "bg-gray-100 dark:bg-gray-700" : ""}`}
 					>
@@ -119,7 +134,10 @@ export const ThemeToggle = () => {
 							stroke="currentColor"
 							viewBox="0 0 24 24"
 							xmlns="http://www.w3.org/2000/svg"
+							role="img"
+							aria-labelledby="darkModeMenuIcon"
 						>
+							<title id="darkModeMenuIcon">ダークモード</title>
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"
@@ -130,6 +148,7 @@ export const ThemeToggle = () => {
 						ダークモード
 					</button>
 					<button
+						type="button"
 						onClick={() => handleModeChange("system")}
 						className={`flex items-center w-full px-4 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700 ${mode === "system" ? "bg-gray-100 dark:bg-gray-700" : ""}`}
 					>
@@ -139,7 +158,10 @@ export const ThemeToggle = () => {
 							stroke="currentColor"
 							viewBox="0 0 24 24"
 							xmlns="http://www.w3.org/2000/svg"
+							role="img"
+							aria-labelledby="systemModeMenuIcon"
 						>
+							<title id="systemModeMenuIcon">システム設定に合わせる</title>
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"

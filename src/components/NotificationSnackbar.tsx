@@ -40,7 +40,12 @@ export const NotificationSnackbar: React.FC<NotificationSnackbarProps> = ({
 					stroke="currentColor"
 					viewBox="0 0 24 24"
 					xmlns="http://www.w3.org/2000/svg"
+					role="img"
+					aria-labelledby="notificationIcon"
 				>
+					<title id="notificationIcon">
+						{type === "success" ? "成功" : "エラー"}
+					</title>
 					{type === "success" ? (
 						<path
 							strokeLinecap="round"

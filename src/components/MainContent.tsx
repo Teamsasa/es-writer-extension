@@ -10,6 +10,7 @@ export const MainContent = ({ onNavigate }: MainContentProps) => {
 			<SignedIn>
 				<div className="flex flex-col items-center w-full max-w-md gap-4">
 					<button
+						type="button"
 						className="w-full bg-primary-main hover:bg-primary-dark text-white dark:bg-primary-light dark:hover:bg-primary-main dark:text-darkmode-text-primary py-3 px-4 rounded-md font-semibold transition-colors duration-200 flex items-center justify-center"
 						onClick={() => onNavigate("generate")}
 					>
@@ -18,7 +19,10 @@ export const MainContent = ({ onNavigate }: MainContentProps) => {
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke="currentColor"
+							role="img"
+							aria-labelledby="generateIcon"
 						>
+							<title id="generateIcon">回答生成アイコン</title>
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"
@@ -29,6 +33,7 @@ export const MainContent = ({ onNavigate }: MainContentProps) => {
 						回答生成
 					</button>
 					<button
+						type="button"
 						className="w-full border border-primary-main text-primary-main hover:bg-primary-main/10 dark:border-primary-light dark:text-primary-light dark:hover:bg-primary-light/20 py-3 px-4 rounded-md font-semibold transition-colors duration-200 flex items-center justify-center"
 						onClick={() => onNavigate("profile")}
 					>
@@ -37,7 +42,10 @@ export const MainContent = ({ onNavigate }: MainContentProps) => {
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke="currentColor"
+							role="img"
+							aria-labelledby="profileIcon"
 						>
+							<title id="profileIcon">プロフィールアイコン</title>
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"

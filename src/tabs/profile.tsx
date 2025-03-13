@@ -76,7 +76,7 @@ const ProfileForm: React.FC = () => {
 					>
 						{isSaving ? (
 							<>
-								<div className="animate-spin h-5 w-5 mr-2 border-2 border-white dark:border-darkmode-text-primary border-t-transparent rounded-full"></div>
+								<div className="animate-spin h-5 w-5 mr-2 border-2 border-white dark:border-darkmode-text-primary border-t-transparent rounded-full" />
 								保存中...
 							</>
 						) : (
