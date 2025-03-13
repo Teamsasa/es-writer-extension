@@ -16,8 +16,11 @@ export const TextareaField: React.FC<TextareaFieldProps> = ({
 	const id = `textarea-${label.replace(/\s+/g, "-").toLowerCase()}`;
 
 	return (
-		<div className="mb-6">
-			<label htmlFor={id} className="block text-gray-700 font-medium mb-2">
+		<div className="w-full mb-6">
+			<label 
+				htmlFor={id}
+				className="block text-sm font-medium mb-1 ml-0.5 dark:text-darkmode-text-primary"
+			>
 				{label}
 			</label>
 			<textarea
@@ -26,7 +29,8 @@ export const TextareaField: React.FC<TextareaFieldProps> = ({
 				onChange={onChange}
 				placeholder={placeholder}
 				required
-				className="w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 shadow-sm resize-none bg-white"
+				rows={4}
+				className="w-full px-3 py-2 bg-white dark:bg-darkmode-paper border border-gray-300 dark:border-darkmode-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-main dark:focus:ring-primary-light focus:border-primary-main dark:focus:border-primary-light transition-colors dark:text-darkmode-text-primary dark:placeholder-darkmode-text-secondary/70"
 			/>
 		</div>
 	);

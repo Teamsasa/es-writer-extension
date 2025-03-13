@@ -1,13 +1,10 @@
 import { useAuth } from "@clerk/chrome-extension";
 import { useCallback } from "react";
-
-type LLMModel =
-	| "gemini-2.0-flash"
-	| "gemini-2.0-flash-lite"
-	| "gemini-2.0-flash-thinking-exp";
+import type { LLMModel, GenerateParams } from "../types";
 
 interface GenerateRequest {
 	company: string;
+	companyId: string;
 	model: LLMModel;
 	html: string;
 }
@@ -23,18 +20,13 @@ interface ErrorResponse {
 	error: string;
 }
 
-interface GenAnswerParams {
-	company: string;
-	model: LLMModel;
-}
-
 const API_ENDPOINT = process.env.PLASMO_PUBLIC_API_ENDPOINT;
 
 export function useGenAnswer() {
 	const { getToken } = useAuth();
 
 	const genAnswer = useCallback(
-		async ({ company, model }: GenAnswerParams) => {
+		async ({ companyName, companyId, model }: GenerateParams) => {
 			const token = await getToken();
 			console.log("Generating answers...");
 
@@ -61,12 +53,14 @@ export function useGenAnswer() {
 														IdpHeader: process.env.PLASMO_PUBLIC_IDP_HEADER,
 													},
 													body: JSON.stringify({
-														company,
+														companyName,
+														companyId,
 														model,
 														html: html_source,
 													}),
 												},
 											);
+
 											if (!apiResponse.ok) {
 												const errorData =
 													(await apiResponse.json()) as ErrorResponse;

@@ -1,7 +1,10 @@
 import { ClerkProvider } from "@clerk/chrome-extension";
+import { useState } from "react";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { MainContent } from "./components/MainContent";
+import { GeneratePage } from "./pages/GeneratePage";
+import { ThemeWrapper } from "./theme";
 import "~style.css";
 
 const PUBLISHABLE_KEY = process.env.PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY;
@@ -13,20 +16,44 @@ if (!PUBLISHABLE_KEY) {
 	);
 }
 
+type PopupView = "main" | "generate" | "profile";
+
 function IndexPopup() {
+	const [currentView, setCurrentView] = useState<PopupView>("main");
+
+	const navigateTo = (view: PopupView) => {
+		setCurrentView(view);
+	};
+
+	const renderContent = () => {
+		switch (currentView) {
+			case "generate":
+				return <GeneratePage onBack={() => navigateTo("main")} />;
+			case "profile":
+				chrome.tabs.create({ url: chrome.runtime.getURL("tabs/profile.html") });
+				setCurrentView("main");
+				return <MainContent onNavigate={navigateTo} />;
+			case "main":
+			default:
+				return <MainContent onNavigate={navigateTo} />;
+		}
+	};
+
 	return (
-		<ClerkProvider
-			publishableKey={PUBLISHABLE_KEY}
-			afterSignOutUrl={`${EXTENSION_URL}/popup.html`}
-			signInFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
-			signUpFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
-		>
-			<div className="flex flex-col h-[350px] w-[450px] bg-gradient-to-b from-blue-50 to-white">
-				<Header />
-				<MainContent />
-				<Footer />
-			</div>
-		</ClerkProvider>
+		<ThemeWrapper>
+			<ClerkProvider
+				publishableKey={PUBLISHABLE_KEY}
+				afterSignOutUrl={`${EXTENSION_URL}/popup.html`}
+				signInFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
+				signUpFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
+			>
+				<div className="flex flex-col h-[400px] w-[450px] bg-white dark:bg-darkmode-bg text-gray-900 dark:text-darkmode-text-primary">
+					<Header />
+					{renderContent()}
+					<Footer />
+				</div>
+			</ClerkProvider>
+		</ThemeWrapper>
 	);
 }
 
