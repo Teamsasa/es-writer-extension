@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, SignInButton } from "@clerk/chrome-extension";
+import { SignInButton, SignedIn, SignedOut } from "@clerk/chrome-extension";
 
 interface MainContentProps {
 	onNavigate: (view: "main" | "generate" | "profile") => void;

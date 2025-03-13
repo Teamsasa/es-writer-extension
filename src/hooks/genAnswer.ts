@@ -1,6 +1,6 @@
 import { useAuth } from "@clerk/chrome-extension";
 import { useCallback } from "react";
-import type { LLMModel, GenerateParams } from "../types";
+import type { GenerateParams, LLMModel } from "../types";
 
 interface GenerateRequest {
 	company: string;

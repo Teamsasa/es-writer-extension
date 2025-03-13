@@ -1,7 +1,7 @@
 import { ClerkProvider, SignedIn, useAuth } from "@clerk/chrome-extension";
 import { useState } from "react";
-import { Header } from "~components/Header";
 import { Footer } from "~components/Footer";
+import { Header } from "~components/Header";
 import { useGenAnswer } from "~hooks/genAnswer";
 import { useCompanySearch } from "~hooks/useCompanySearch";
 import { ThemeWrapper } from "~theme";
@@ -52,7 +52,7 @@ function GenerateTabContent() {
 
 	const handleCompanySelect = (company: Company) => {
 		setSelectedCompany(company);
-		updateSearchQuery(company.name);
+		updateSearchQuery(company.companyName);
 		setIsCompanyMenuOpen(false);
 	};
 
@@ -70,8 +70,8 @@ function GenerateTabContent() {
 
 		try {
 			await genAnswer({
-				companyName: selectedCompany.name,
-				companyId: selectedCompany.corporate_number,
+				companyName: selectedCompany.companyName,
+				companyId: selectedCompany.companyId,
 				model: selectedModel,
 			});
 			setGenerateSuccess(true);
@@ -168,15 +168,15 @@ function GenerateTabContent() {
 									<div className="absolute z-10 w-full mt-1 bg-white dark:bg-darkmode-paper border border-gray-200 dark:border-darkmode-border rounded-md shadow-lg max-h-48 overflow-y-auto">
 										{companies.map((company) => (
 											<div
-												key={company.corporate_number}
+												key={company.companyId}
 												onClick={() => handleCompanySelect(company)}
 												className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-darkmode-border cursor-pointer"
 											>
 												<div className="font-medium text-sm dark:text-darkmode-text-primary">
-													{company.name}
+													{company.companyName}
 												</div>
 												<div className="text-xs text-gray-500 dark:text-darkmode-text-secondary">
-													{company.corporate_number}
+													{company.companyId}
 												</div>
 											</div>
 										))}

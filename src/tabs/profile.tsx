@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import "~style.css";
 
 import { ClerkProvider } from "@clerk/chrome-extension";
-import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
 import { NotificationSnackbar } from "../components/NotificationSnackbar";
 import { TextareaField } from "../components/TextareaField";
 import { useNotification } from "../hooks/useNotification";
