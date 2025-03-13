@@ -1,5 +1,5 @@
 import { ClerkProvider } from "@clerk/chrome-extension";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { MainContent } from "./components/MainContent";
@@ -25,13 +25,18 @@ function IndexPopup() {
 		setCurrentView(view);
 	};
 
+	useEffect(() => {
+		if (currentView === "profile") {
+			chrome.tabs.create({ url: chrome.runtime.getURL("tabs/profile.html") });
+			setCurrentView("main");
+		}
+	}, [currentView]);
+
 	const renderContent = () => {
 		switch (currentView) {
 			case "generate":
 				return <GeneratePage onBack={() => navigateTo("main")} />;
 			case "profile":
-				chrome.tabs.create({ url: chrome.runtime.getURL("tabs/profile.html") });
-				setCurrentView("main");
 				return <MainContent onNavigate={navigateTo} />;
 			default:
 				return <MainContent onNavigate={navigateTo} />;
