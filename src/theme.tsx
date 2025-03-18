@@ -73,6 +73,13 @@ export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
 		saveThemePreference(newMode);
 	}, []);
 
+	const setModeCallback = useCallback(
+		(value: ColorMode) => {
+			setMode(value);
+		},
+		[setMode],
+	);
+
 	// 実際に適用するカラーモードを決定
 	const actualMode = useMemo(() => {
 		if (mode === "system") {
@@ -94,10 +101,10 @@ export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
 	const colorModeContextValue = useMemo(
 		() => ({
 			mode,
-			setMode,
+			setMode: setModeCallback,
 			systemPreference,
 		}),
-		[mode, systemPreference, setMode],
+		[mode, setModeCallback, systemPreference],
 	);
 
 	return (
