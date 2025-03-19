@@ -4,21 +4,18 @@ import {
 	SignedOut,
 	UserButton,
 } from "@clerk/chrome-extension";
+import { ThemeToggle } from "./ThemeToggle";
 
 export const Header = () => {
 	return (
-		<header className="w-full p-4 bg-white shadow-sm flex justify-between items-center">
-			<h1 className="text-xl font-bold text-blue-700">ES Writer</h1>
-			<div>
-				<SignedOut>
-					<div className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">
-						<SignInButton mode="modal" />
-					</div>
-				</SignedOut>
+		<header className="py-2 px-4 flex items-center justify-between border-b border-gray-200 dark:border-darkmode-border bg-white dark:bg-darkmode-paper">
+			<h1 className="text-lg font-bold text-primary-main dark:text-primary-light">
+				ES Writer
+			</h1>
+			<div className="flex items-center gap-3">
+				<ThemeToggle />
 				<SignedIn>
-					<div className="flex items-center gap-4">
-						<UserButton />
-					</div>
+					<UserButton afterSignOutUrl="/popup.html" />
 				</SignedIn>
 			</div>
 		</header>

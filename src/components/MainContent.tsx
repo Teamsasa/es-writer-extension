@@ -1,97 +1,71 @@
 import { SignInButton, SignedIn, SignedOut } from "@clerk/chrome-extension";
-import { useState } from "react";
-import { useGenAnswer } from "../hooks/genAnswer";
-import { Button } from "./Button";
-import { GenerateModal } from "./GenerateModal";
 
-type LLMModel =
-	| "gemini-2.0-flash"
-	| "gemini-2.0-flash-lite"
-	| "gemini-2.0-flash-thinking-exp";
+interface MainContentProps {
+	onNavigate: (view: "main" | "generate" | "profile") => void;
+}
 
-const EXTENSION_URL = chrome.runtime.getURL(".");
-
-const GenerateIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		className="h-5 w-5"
-		viewBox="0 0 20 20"
-		fill="currentColor"
-	>
-		<title>回答生成</title>
-		<path
-			fillRule="evenodd"
-			d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
-			clipRule="evenodd"
-		/>
-	</svg>
-);
-
-const ProfileIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		className="h-5 w-5"
-		viewBox="0 0 20 20"
-		fill="currentColor"
-	>
-		<title>経歴入力</title>
-		<path
-			fillRule="evenodd"
-			d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-			clipRule="evenodd"
-		/>
-	</svg>
-);
-
-export const MainContent = () => {
-	const genAnswer = useGenAnswer();
-	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	const handleGenAnswer = async (params: {
-		company: string;
-		model: LLMModel;
-	}) => {
-		try {
-			await genAnswer(params);
-		} catch (error) {
-			console.error("Error generating answer:", error);
-		}
-	};
-
-	const handleOpenProfile = () => {
-		chrome.tabs.create({
-			url: `${EXTENSION_URL}/tabs/profile.html`,
-		});
-	};
-
+export const MainContent = ({ onNavigate }: MainContentProps) => {
 	return (
-		<main className="flex-1 flex flex-col items-center justify-center p-6">
+		<main className="flex-grow flex flex-col items-center justify-center py-4 px-4">
 			<SignedIn>
-				<div className="flex flex-col items-center gap-6 w-full max-w-md">
-					<Button onClick={() => setIsModalOpen(true)}>
-						<GenerateIcon />
+				<div className="flex flex-col items-center w-full max-w-md gap-4">
+					<button
+						type="button"
+						className="w-full bg-primary-main hover:bg-primary-dark text-white dark:bg-primary-light dark:hover:bg-primary-main dark:text-darkmode-text-primary py-3 px-4 rounded-md font-semibold transition-colors duration-200 flex items-center justify-center"
+						onClick={() => onNavigate("generate")}
+					>
+						<svg
+							className="w-5 h-5 mr-2"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							role="img"
+							aria-labelledby="generateIcon"
+						>
+							<title id="generateIcon">回答生成アイコン</title>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M13 10V3L4 14h7v7l9-11h-7z"
+							/>
+						</svg>
 						回答生成
-					</Button>
-					<Button onClick={handleOpenProfile} variant="secondary">
-						<ProfileIcon />
+					</button>
+					<button
+						type="button"
+						className="w-full border border-primary-main text-primary-main hover:bg-primary-main/10 dark:border-primary-light dark:text-primary-light dark:hover:bg-primary-light/20 py-3 px-4 rounded-md font-semibold transition-colors duration-200 flex items-center justify-center"
+						onClick={() => onNavigate("profile")}
+					>
+						<svg
+							className="w-5 h-5 mr-2"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							role="img"
+							aria-labelledby="profileIcon"
+						>
+							<title id="profileIcon">プロフィールアイコン</title>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+							/>
+						</svg>
 						経歴入力
-					</Button>
+					</button>
 				</div>
-				<GenerateModal
-					isOpen={isModalOpen}
-					onClose={() => setIsModalOpen(false)}
-					onGenerate={handleGenAnswer}
-				/>
 			</SignedIn>
 			<SignedOut>
-				<div className="text-center">
-					<h2 className="text-2xl font-bold mb-4 text-gray-800">
+				<div className="p-6 flex flex-col items-center bg-white dark:bg-darkmode-paper rounded-lg shadow-sm dark:shadow-black/20 dark:border dark:border-darkmode-border">
+					<h2 className="text-lg font-bold mb-2 text-gray-900 dark:text-darkmode-text-primary">
 						ES Writer へようこそ
 					</h2>
-					<p className="text-gray-600 mb-8">
+					<p className="text-sm text-gray-500 dark:text-darkmode-text-secondary mb-4 text-center">
 						ログインして、ES作成支援機能をご利用ください
 					</p>
-					<div className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors duration-200 font-medium">
+					<div className="bg-primary-main hover:bg-primary-dark text-white dark:bg-primary-light dark:hover:bg-primary-main rounded-md px-4 py-2 transition-colors">
 						<SignInButton mode="modal" />
 					</div>
 				</div>
