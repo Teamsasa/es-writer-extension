@@ -23,6 +23,18 @@ jobs:
         with:
           node-version: 20.x
           cache: "pnpm"
+
+      # This shoud be modified when we want to publish to different browsers
+      - name: Create env file from GitHub Secrets
+        run: |
+          cat <<EOF > .env
+          CRX_PUBLIC_KEY=${{ secrets.CRX_PUBLIC_KEY }}
+          PLASMO_PUBLIC_API_ENDPOINT=${{ secrets.PLASMO_PUBLIC_API_ENDPOINT }}
+          PLASMO_PUBLIC_IDP=${{ secrets.PLASMO_PUBLIC_IDP }}
+          PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_FRONTEND_API=${{ secrets.CLERK_FRONTEND_API }}
+          EOF
+
       - name: Build the extension
         run: pnpm build
       - name: Package the extension into a zip artifact
