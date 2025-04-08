@@ -1,10 +1,13 @@
 name: "Submit to Web Store"
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v3
       - name: Cache pnpm modules
@@ -14,15 +17,27 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v4
         with:
           version: latest
           run_install: true
-      - name: Use Node.js 16.x
+      - name: Use Node.js 20.x
         uses: actions/setup-node@v3.4.1
         with:
-          node-version: 16.x
+          node-version: 20.x
           cache: "pnpm"
+
+      # This shoud be modified when we want to publish to different browsers
+      - name: Create env file from GitHub Secrets
+        run: |
+          cat <<EOF > .env
+          CRX_PUBLIC_KEY=${{ secrets.CRX_PUBLIC_KEY }}
+          PLASMO_PUBLIC_API_ENDPOINT=${{ secrets.PLASMO_PUBLIC_API_ENDPOINT }}
+          PLASMO_PUBLIC_IDP=${{ secrets.PLASMO_PUBLIC_IDP }}
+          PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_FRONTEND_API=${{ secrets.CLERK_FRONTEND_API }}
+          EOF
+
       - name: Build the extension
         run: pnpm build
       - name: Package the extension into a zip artifact
