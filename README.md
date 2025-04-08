@@ -1,72 +1,64 @@
-## Getting Started
+# Es writer extension
 
-First, run the development server:
+エントリーシート自動生成を支援する Chrome 拡張機能です。
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+## 🚀 ストアページ
 
-After running pnpm dev, open chrome://extensions/ in Chrome. Enable Developer mode by toggling the switch in the top right corner. Then, click "Load unpacked" and select the build/chrome-mv3-dev folder in your project directory. Your extension should now be loaded and running. For more details, refer to [Plasmo Framework Documentation](https://docs.plasmo.com/framework).
+[Chrome ウェブストア](https://chromewebstore.google.com/detail/es-writer-extension/jkencchebhkbaomammmgbhnpalgkchkm)で公開中です。
 
-## Environment Variables
+## ✨ 機能
 
-### .env
+*   プロフィール情報の登録・編集
+*   企業情報を自動で検索
+*   設問を自動で読み取り回答を生成
+*   生成された回答の自動入力
+*   テーマ（ライト/ダーク）の切り替え
 
-Authentication details can be found in the Clerk dashboard.
+## 🚀 インストール (開発者向け)
 
-```
-PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_FRONTEND_API=
-```
+1.  **リポジトリをクローン:**
+    ```bash
+    git clone https://github.com/Teamsasa/es-writer-extension.git
+    cd es-writer-extension
+    ```
+2.  **依存関係をインストール:**
+    ```bash
+    pnpm install
+    ```
+3.  **環境変数を設定:**
+    `.env.example` ファイルを参考にして `.env` ファイルを作成し、必要な環境変数を設定します。
+4.  **拡張機能をビルド:**
+    ```bash
+    pnpm build
+    ```
+    これにより `build/chrome-mv3-prod` ディレクトリにビルド成果物が出力されます。
+5.  **Chrome に拡張機能を読み込む:**
+    *   Chrome で `chrome://extensions` を開きます。
+    *   右上の「デベロッパー モード」をオンにします。
+    *   「パッケージ化されていない拡張機能を読み込む」をクリックし、上記で作成された `build/chrome-mv3-prod` ディレクトリを選択します。
 
-### .env.development
+## 使い方
 
-```
-PLASMO_PUBLIC_API_ENDPOINT=http://localhost:8080
-PLASMO_PUBLIC_IDP_HEADER=swagger
-```
+1.  Chrome ツールバーの拡張機能アイコンをクリックしてポップアップを開きます。
+2.  「プロフィール」タブで、学歴、職歴、自己PRなどの情報を入力・保存します。
+3.  「生成」タブで、対象企業を検索し、エントリーシートの設問を入力します。
+4.  「生成」ボタンをクリックすると、AIがプロフィールと企業情報に基づいて回答案を作成します。
+5.  生成された回答を確認し、必要に応じて編集します。
 
-### .env.production
+## 🛠️ 開発
 
-```
-PLASMO_PUBLIC_API_ENDPOINT=
-PLASMO_PUBLIC_IDP_HEADER=clerk
-```
-
-### .env.chrome
-
-Set up the following environment variable for Chrome extension builds. Follow the guide at [Clerk Chrome Extension Setup](https://clerk.com/docs/quickstarts/chrome-extension#create-a-consistent-crx-id-for-your-extension) and generate key pairs using [Itero Plasmo Tool](https://itero.plasmo.com/tools/generate-keypairs).
-
-```
-CRX_PUBLIC_KEY=
-```
-
-## Linting and Formatting
-
-To check and automatically format your code, run the following command:
-
-```bash
-pnpm check
-# or
-npm run check
-```
-
-This will run linting and formatting checks, applying necessary fixes automatically. Files that are ignored by git will not be checked or modified.
-
-## Making production build
-
-Run the following:
-
-```bash
-pnpm build
-# or
-npm run build
-```
-
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
-
-## Submit to the webstores
-
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+*   **開発モードで起動:**
+    ```bash
+    pnpm dev
+    ```
+*   **コードチェック:**
+    ```bash
+    pnpm check
+    ```
+*   **主要技術スタック:**
+    *   React
+    *   TypeScript
+    *   Tailwind CSS
+    *   Plasmo
+    *   Clerk (認証)
+    *   Biome (フォーマッター/リンター)
