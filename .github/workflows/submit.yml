@@ -36,6 +36,7 @@ jobs:
           PLASMO_PUBLIC_IDP=${{ secrets.PLASMO_PUBLIC_IDP }}
           PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           CLERK_FRONTEND_API=${{ secrets.CLERK_FRONTEND_API }}
+          CLERK_AUTH_DOMAIN=${{ secrets.CLERK_AUTH_DOMAIN }}
           EOF
 
       - name: Build the extension
