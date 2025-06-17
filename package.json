@@ -1,7 +1,7 @@
 {
 	"name": "es-writer-extension",
 	"displayName": "Es writer extension",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "Automatic ES(entry sheet) generation tool",
 	"author": "Teamsasa",
 	"scripts": {
