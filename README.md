@@ -4,7 +4,10 @@
 
 ## 🚀 ストアページ
 
-[Chrome ウェブストア](https://chromewebstore.google.com/detail/es-writer-extension/jkencchebhkbaomammmgbhnpalgkchkm)で公開中です。
+~~[Chrome ウェブストア](https://chromewebstore.google.com/detail/es-writer-extension/jkencchebhkbaomammmgbhnpalgkchkm)で公開中です。~~
+
+> [!WARNING]
+> デプロイは維持されておらず、拡張機能も既にアーカイブされています。
 
 ## ✨ 機能
 
