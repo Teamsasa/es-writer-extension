@@ -11,7 +11,7 @@
 		"check": "biome check --write --vcs-enabled=true --vcs-client-kind=git --vcs-use-ignore-file=true . --json-formatter-enabled=false"
 	},
 	"dependencies": {
-		"@clerk/chrome-extension": "^2.2.13",
+		"@clerk/chrome-extension": "^2.9.15",
 		"plasmo": "0.90.5",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
